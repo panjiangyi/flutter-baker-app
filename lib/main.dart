@@ -36,7 +36,15 @@ class MyApp extends State<FavoriteWidget> {
           title: Text(title),
         ),
         body: Column(
-          children: [MyButtonWithState(idx)],
+          children: [
+            MyButtonWithState(idx),
+            RaisedButton(
+              child: Text((idx).toString()),
+              onPressed: () {
+                setState(() => {idx--});
+              },
+            )
+          ],
         ),
       ),
     );
