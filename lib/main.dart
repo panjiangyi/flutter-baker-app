@@ -36,21 +36,41 @@ class MyApp extends State<FavoriteWidget> {
           title: Text(title),
         ),
         body: Column(
-          children: [MyButton(idx)],
+          children: [MyButtonWithState(idx)],
         ),
       ),
     );
   }
 }
 
-class MyButton extends StatelessWidget {
+class MyButtonWithState extends StatefulWidget {
+  final num idx;
+  MyButtonWithState(this.idx);
+  @override
+  MyButton createState() => MyButton(idx);
+}
+
+class MyButton extends State<MyButtonWithState> {
   final num idx;
   MyButton(this.idx);
+  num innerIdx = 0;
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      child: Text(idx.toString()),
-      onPressed: () => eventCenter.setState(),
+    return Column(
+      children: [
+        RaisedButton(
+          child: Text((innerIdx).toString()),
+          onPressed: () {
+            setState(() => {innerIdx--});
+          },
+        ),
+        RaisedButton(
+          child: Text((idx).toString()),
+          onPressed: () {
+            eventCenter.setState();
+          },
+        ),
+      ],
     );
   }
 }
