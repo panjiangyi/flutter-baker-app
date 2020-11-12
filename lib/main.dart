@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:flutter/semantics.dart';
+import 'package:flutter/foundation.dart';
 import "2.dart";
 import "3.dart" as good;
 
@@ -7,78 +7,98 @@ void main() {
   Test ins = Test();
   good.Test();
   ins.loggg();
-  runApp(FavoriteWidget());
+  runApp(ParentWidget());
 }
 
-class EventCenter {
-  Function setState;
-  EventCenter(this.setState);
-}
+//---------------------------- ParentWidget ----------------------------
 
-EventCenter eventCenter;
-
-class FavoriteWidget extends StatefulWidget {
+class ParentWidget extends StatefulWidget {
   @override
-  MyApp createState() => MyApp("first app");
+  _ParentWidgetState createState() => _ParentWidgetState();
 }
 
-class MyApp extends State<FavoriteWidget> {
-  String title = "default!!";
-  MyApp(this.title);
-  num idx = 1;
+class _ParentWidgetState extends State<ParentWidget> {
+  bool _active = false;
+
+  void _handleTapboxChanged(bool newValue) {
+    setState(() {
+      _active = newValue;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    eventCenter = EventCenter(() => setState(() => {idx++}));
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        body: Column(
-          children: [
-            MyButtonWithState(idx),
-            RaisedButton(
-              child: Text((idx).toString()),
-              onPressed: () {
-                setState(() => {idx--});
-              },
-            )
-          ],
-        ),
+    return Container(
+      child: TapboxC(
+        active: _active,
+        onChanged: _handleTapboxChanged,
       ),
     );
   }
 }
 
-class MyButtonWithState extends StatefulWidget {
-  final num idx;
-  MyButtonWithState(this.idx);
-  @override
-  MyButton createState() => MyButton(idx);
+//----------------------------- TapboxC ------------------------------
+
+class TapboxC extends StatefulWidget {
+  TapboxC({Key key, this.active: false, @required this.onChanged})
+      : super(key: key);
+
+  final bool active;
+  final ValueChanged<bool> onChanged;
+
+  _TapboxCState createState() => _TapboxCState();
 }
 
-class MyButton extends State<MyButtonWithState> {
-  final num idx;
-  MyButton(this.idx);
-  num innerIdx = 0;
-  @override
+class _TapboxCState extends State<TapboxC> {
+  bool _highlight = false;
+
+  void _handleTapDown(TapDownDetails details) {
+    setState(() {
+      _highlight = true;
+    });
+  }
+
+  void _handleTapUp(TapUpDetails details) {
+    setState(() {
+      _highlight = false;
+    });
+  }
+
+  void _handleTapCancel() {
+    setState(() {
+      _highlight = false;
+    });
+  }
+
+  void _handleTap() {
+    widget.onChanged(!widget.active);
+  }
+
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        RaisedButton(
-          child: Text((innerIdx).toString()),
-          onPressed: () {
-            setState(() => {innerIdx--});
-          },
+    // This example adds a green border on tap down.
+    // On tap up, the square changes to the opposite state.
+    return GestureDetector(
+      onTapDown: _handleTapDown, // Handle the tap events in the order that
+      onTapUp: _handleTapUp, // they occur: down, up, tap, cancel
+      onTap: _handleTap,
+      onTapCancel: _handleTapCancel,
+      child: Container(
+        child: Center(
+          child: Text(widget.active ? 'Active' : 'Inactive',
+              style: TextStyle(fontSize: 32.0, color: Colors.white)),
         ),
-        RaisedButton(
-          child: Text((idx).toString()),
-          onPressed: () {
-            eventCenter.setState();
-          },
+        width: 200.0,
+        height: 200.0,
+        decoration: BoxDecoration(
+          color: widget.active ? Colors.lightGreen[700] : Colors.grey[600],
+          border: _highlight
+              ? Border.all(
+                  color: Colors.teal[700],
+                  width: 10.0,
+                )
+              : null,
         ),
-      ],
+      ),
     );
   }
 }
