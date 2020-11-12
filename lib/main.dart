@@ -52,7 +52,7 @@ class MyApp extends State<FavoriteWidget> {
 }
 
 class MyButtonWithState extends StatefulWidget {
-  final num idx;
+  num idx;
   MyButtonWithState(this.idx);
   @override
   MyButton createState() => MyButton(idx);
