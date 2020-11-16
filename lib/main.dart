@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import "package:flutter/material.dart";
 import 'package:flutter/semantics.dart';
 import "2.dart";
 import "3.dart" as good;
+import 'package:flutter/services.dart' show rootBundle;
 
 void main() {
   Test ins = Test();
@@ -16,6 +19,18 @@ class EventCenter {
 }
 
 EventCenter eventCenter;
+
+void loadAsset() async {
+  var result =
+      jsonDecode(await rootBundle.loadString('lib/assets/config.json'));
+  print(result["a"]);
+}
+
+void loadImage() async {
+  var result = AssetImage('lib/assets/Jietu20201110-101343.jpg');
+  print(result);
+}
+//---------------------------- ParentWidget ----------------------------
 
 class FavoriteWidget extends StatefulWidget {
   @override
@@ -43,6 +58,9 @@ class MyApp extends State<FavoriteWidget> {
               onPressed: () {
                 setState(() => {idx--});
               },
+            ),
+            Image(
+              image: AssetImage('lib/assets/Jietu20201110-101343.jpg'),
             )
           ],
         ),
