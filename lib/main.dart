@@ -52,7 +52,16 @@ class MyApp extends State<FavoriteWidget> {
         ),
         body: Column(
           children: [
-            MyButtonWithState(idx),
+            GestureDetector(
+              child: Container(
+                child: null,
+                color: Color.fromRGBO(255, 0, 0, 1),
+                height: 550.0,
+              ),
+              onPanStart: (e) {
+                print("doubleTap! $e");
+              },
+            ),
             RaisedButton(
               child: Text((idx).toString()),
               onPressed: () {
