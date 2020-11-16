@@ -1,15 +1,30 @@
+import 'dart:convert';
+
 import "package:flutter/material.dart";
 import 'package:flutter/foundation.dart';
 import "2.dart";
 import "3.dart" as good;
+import 'package:flutter/services.dart' show rootBundle;
 
 void main() {
   Test ins = Test();
   good.Test();
   ins.loggg();
   runApp(ParentWidget());
+  // loadAsset();
+  loadImage();
 }
 
+void loadAsset() async {
+  var result =
+      jsonDecode(await rootBundle.loadString('lib/assets/config.json'));
+  print(result["a"]);
+}
+
+void loadImage() async {
+  var result = AssetImage('lib/assets/Jietu20201110-101343.jpg');
+  print(result);
+}
 //---------------------------- ParentWidget ----------------------------
 
 class ParentWidget extends StatefulWidget {
