@@ -7,34 +7,18 @@ import "3.dart" as good;
 import 'package:flutter/services.dart' show rootBundle;
 
 void main() {
-  Test ins = Test();
-  good.Test();
-  ins.loggg();
   runApp(FavoriteWidget());
 }
 
-class EventCenter {
-  Function setState;
-  EventCenter(this.setState);
-}
-
-EventCenter eventCenter;
-
-void loadAsset() async {
-  var result =
-      jsonDecode(await rootBundle.loadString('lib/assets/config.json'));
-  print(result["a"]);
-}
-
-void loadImage() async {
-  var result = AssetImage('lib/assets/Jietu20201110-101343.jpg');
-  print(result);
-}
 //---------------------------- ParentWidget ----------------------------
+var outerIdxState;
 
 class FavoriteWidget extends StatefulWidget {
   @override
-  MyApp createState() => MyApp("first app");
+  MyApp createState() {
+    outerIdxState = MyApp("first app");
+    return outerIdxState;
+  }
 }
 
 class MyApp extends State<FavoriteWidget> {
@@ -44,7 +28,6 @@ class MyApp extends State<FavoriteWidget> {
 
   @override
   Widget build(BuildContext context) {
-    eventCenter = EventCenter(() => setState(() => {idx++}));
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -52,60 +35,15 @@ class MyApp extends State<FavoriteWidget> {
         ),
         body: Column(
           children: [
-            GestureDetector(
-              child: Container(
-                child: null,
-                color: Color.fromRGBO(255, 0, 0, 1),
-                height: 550.0,
-              ),
-              onPanStart: (e) {
-                print("doubleTap! $e");
-              },
-            ),
             RaisedButton(
-              child: Text((idx).toString()),
+              child: Text("original11 button${(idx).toString()}"),
               onPressed: () {
                 setState(() => {idx--});
               },
             ),
-            Image(
-              image: AssetImage('lib/assets/Jietu20201110-101343.jpg'),
-            )
           ],
         ),
       ),
-    );
-  }
-}
-
-class MyButtonWithState extends StatefulWidget {
-  num idx;
-  MyButtonWithState(this.idx);
-  @override
-  MyButton createState() => MyButton(idx);
-}
-
-class MyButton extends State<MyButtonWithState> {
-  final num idx;
-  MyButton(this.idx);
-  num innerIdx = 0;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        RaisedButton(
-          child: Text((innerIdx).toString()),
-          onPressed: () {
-            setState(() => {innerIdx--});
-          },
-        ),
-        RaisedButton(
-          child: Text((idx).toString()),
-          onPressed: () {
-            eventCenter.setState();
-          },
-        ),
-      ],
     );
   }
 }
