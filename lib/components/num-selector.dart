@@ -16,31 +16,34 @@ class _NumSelectorState extends State<NumSelector> {
         itemHeight: 56,
         value: value,
         itemBuilder: (context, value) {
-          return Text(value);
+          return Center(child: Text(value));
         });
   }
 
   @override
   Widget build(BuildContext context) {
-    return DirectSelectContainer(
-      child: DirectSelectList<String>(
-          onUserTappedListener: () {
-            SnackBar(content: Text('Hold and drag instead of tap'));
-          },
-          values: ["1.0", "2.0", "3.0", "4.0", "5.0", "6.0", "7.0"],
-          defaultItemIndex: selectedPortionCounts,
-          itemBuilder: (String value) => getDropDownMenuItem(value),
-          focusedItemDecoration: BoxDecoration(
-            border: BorderDirectional(
-              bottom: BorderSide(width: 1, color: Colors.black12),
-              top: BorderSide(width: 1, color: Colors.black12),
+    return Container(
+      color: Color.fromRGBO(255, 0, 0, 1),
+      child: DirectSelectContainer(
+        child: DirectSelectList<String>(
+            onUserTappedListener: () {
+              print('Hold and drag instead of tap');
+            },
+            values: ["1.0", "2.0", "3.0", "4.0", "5.0", "6.0", "7.0"],
+            defaultItemIndex: selectedPortionCounts,
+            itemBuilder: (String value) => getDropDownMenuItem(value),
+            focusedItemDecoration: BoxDecoration(
+              border: BorderDirectional(
+                bottom: BorderSide(width: 1, color: Colors.black12),
+                top: BorderSide(width: 1, color: Colors.black12),
+              ),
             ),
-          ),
-          onItemSelectedListener: (item, index, context) {
-            setState(() {
-              selectedPortionCounts = index;
-            });
-          }),
+            onItemSelectedListener: (item, index, context) {
+              setState(() {
+                selectedPortionCounts = index;
+              });
+            }),
+      ),
     );
   }
 }
