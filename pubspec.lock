@@ -50,6 +50,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.3"
+  direct_select_flutter:
+    dependency: "direct main"
+    description:
+      path: "librarys/direct-select-flutter"
+      relative: true
+    source: path
+    version: "1.0.6"
   fake_async:
     dependency: transitive
     description:
@@ -88,6 +95,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.8.0-nullsafety.3"
+  rect_getter:
+    dependency: transitive
+    description:
+      name: rect_getter
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -151,3 +165,4 @@ packages:
     version: "2.1.0-nullsafety.5"
 sdks:
   dart: ">=2.12.0-0.0 <3.0.0"
+  flutter: ">=0.1.4 <2.0.0"

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "store.dart";
+import "./components/selector.dart";
 
 BakerState appState;
 void main() {
@@ -23,16 +24,7 @@ class BakerState extends State<Baker> {
         appBar: AppBar(
           title: Text(title),
         ),
-        body: Column(
-          children: [
-            RaisedButton(
-              child: Text("button${(state.idx).toString()}"),
-              onPressed: () {
-                state.setState(() => {idx--});
-              },
-            ),
-          ],
-        ),
+        body: Selector(),
       ),
     );
   }
