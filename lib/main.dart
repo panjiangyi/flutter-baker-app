@@ -1,33 +1,23 @@
-import 'dart:convert';
-
 import "package:flutter/material.dart";
-import 'package:flutter/semantics.dart';
-import "2.dart";
-import "3.dart" as good;
-import 'package:flutter/services.dart' show rootBundle;
+import "store.dart";
 
+BakerState appState;
 void main() {
-  runApp(FavoriteWidget());
+  runApp(Baker());
 }
 
-//---------------------------- ParentWidget ----------------------------
-var outerIdxState;
-
-class FavoriteWidget extends StatefulWidget {
+class Baker extends StatefulWidget {
   @override
-  MyApp createState() {
-    outerIdxState = MyApp("first app");
-    return outerIdxState;
-  }
+  BakerState createState() => store.init(BakerState());
 }
 
-class MyApp extends State<FavoriteWidget> {
-  String title = "default!!";
-  MyApp(this.title);
+class BakerState extends State<Baker> {
+  String title = "烘焙面包计算器";
   num idx = 1;
 
   @override
   Widget build(BuildContext context) {
+    BakerState state = store.getState();
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -36,9 +26,9 @@ class MyApp extends State<FavoriteWidget> {
         body: Column(
           children: [
             RaisedButton(
-              child: Text("original11 button${(idx).toString()}"),
+              child: Text("button${(state.idx).toString()}"),
               onPressed: () {
-                setState(() => {idx--});
+                state.setState(() => {idx--});
               },
             ),
           ],
