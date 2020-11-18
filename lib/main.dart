@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "store.dart";
-import "./components/selector.dart";
+import "./components/num-selector.dart";
 
 BakerState appState;
 void main() {
@@ -24,7 +24,7 @@ class BakerState extends State<Baker> {
         appBar: AppBar(
           title: Text(title),
         ),
-        body: Selector(),
+        body: NumSelector(),
       ),
     );
   }

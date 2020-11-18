@@ -98,164 +98,69 @@ class _SelectorState extends State<Selector> {
       body: DirectSelectContainer(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
-              verticalDirection: VerticalDirection.down,
               children: <Widget>[
-                SizedBox(height: 20.0),
-                Container(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    alignment: AlignmentDirectional.centerStart,
-                    margin: EdgeInsets.only(left: 4),
-                    child: Column(
-                      children: <Widget>[
-                        Text(_foodVariants[selectedFoodVariants],
-                            style: TextStyle(
-                                fontSize: 26, fontWeight: FontWeight.bold))
-                      ],
-                    )),
-                Container(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    alignment: AlignmentDirectional.centerStart,
-                    margin: EdgeInsets.only(left: 4),
-                    child: Column(
-                      children: <Widget>[
-                        Text(_numbers[selectedPortionCounts] +
-                            "   " +
-                            _portionSize[selectedPortionSize])
-                      ],
-                    )),
-                SizedBox(height: 5.0),
-                _getFoodContainsRow(),
-                SizedBox(height: 20.0),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: <Widget>[
-                      MealSelector(data: _meals, label: "To which meal?"),
-                      SizedBox(height: 20.0),
-                      MealSelector(
-                          data: _food, label: "Search our database by name"),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                        child: Container(
-                          decoration: _getShadowDecoration(),
-                          child: Card(
-                              child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              Expanded(
-                                  child: Padding(
-                                      child: DirectSelectList<String>(
-                                          values: _foodVariants,
-                                          onUserTappedListener: () {
-                                            _showScaffold();
-                                          },
-                                          defaultItemIndex:
-                                              selectedFoodVariants,
-                                          itemBuilder: (String value) =>
-                                              getDropDownMenuItem(value),
-                                          focusedItemDecoration:
-                                              _getDslDecoration(),
-                                          onItemSelectedListener:
-                                              (item, index, context) {
-                                            setState(() {
-                                              selectedFoodVariants = index;
-                                            });
-                                          }),
-                                      padding: EdgeInsets.only(left: 22))),
-                              Padding(
-                                padding: EdgeInsets.only(right: 8),
-                                child: _getDropdownIcon(),
-                              )
-                            ],
-                          )),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      Container(
-                          padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-                          margin: EdgeInsets.only(left: 4),
-                          alignment: AlignmentDirectional.centerStart,
-                          child: Text("How Much?")),
-                      Row(children: <Widget>[
-                        Expanded(
-                            flex: 2,
-                            child: Container(
-                              decoration: _getShadowDecoration(),
-                              child: Card(
-                                  child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.max,
-                                children: <Widget>[
-                                  Expanded(
-                                      child: Padding(
-                                          child: DirectSelectList<String>(
-                                              onUserTappedListener: () {
-                                                _showScaffold();
-                                              },
-                                              values: _numbers,
-                                              defaultItemIndex:
-                                                  selectedPortionCounts,
-                                              itemBuilder: (String value) =>
-                                                  getDropDownMenuItem(value),
-                                              focusedItemDecoration:
-                                                  _getDslDecoration(),
-                                              onItemSelectedListener:
-                                                  (item, index, context) {
-                                                setState(() {
-                                                  selectedPortionCounts = index;
-                                                });
-                                              }),
-                                          padding: EdgeInsets.only(left: 22))),
-                                ],
-                              )),
-                            )),
-                        Expanded(
-                            flex: 8,
-                            child: Container(
-                              decoration: _getShadowDecoration(),
-                              child: Card(
-                                  child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: <Widget>[
-                                  Expanded(
-                                      child: Padding(
-                                          child: DirectSelectList<String>(
-                                              values: _portionSize,
-                                              defaultItemIndex:
-                                                  selectedPortionSize,
-                                              itemBuilder: (String value) =>
-                                                  getDropDownMenuItem(value),
-                                              focusedItemDecoration:
-                                                  _getDslDecoration(),
-                                              onItemSelectedListener:
-                                                  (item, index, context) {
-                                                setState(() {
-                                                  selectedPortionSize = index;
-                                                });
-                                              }),
-                                          padding: EdgeInsets.only(left: 22))),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 8),
-                                    child: _getDropdownIcon(),
-                                  )
-                                ],
-                              )),
-                            )),
-                      ]),
-                      Row(children: <Widget>[
-                        Expanded(
-                            child: RaisedButton(
-                          child: const Text('ADD TO JOURNAL',
-                              style: TextStyle(color: Colors.blueAccent)),
-                          onPressed: () {},
-                        ))
-                      ]),
-                    ],
-                  ),
-                ),
+                Row(children: <Widget>[
+                  Expanded(
+                      flex: 2,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Expanded(
+                              child: Padding(
+                                  child: DirectSelectList<String>(
+                                      onUserTappedListener: () {
+                                        _showScaffold();
+                                      },
+                                      values: _numbers,
+                                      defaultItemIndex: selectedPortionCounts,
+                                      itemBuilder: (String value) =>
+                                          getDropDownMenuItem(value),
+                                      focusedItemDecoration:
+                                          _getDslDecoration(),
+                                      onItemSelectedListener:
+                                          (item, index, context) {
+                                        setState(() {
+                                          selectedPortionCounts = index;
+                                        });
+                                      }),
+                                  padding: EdgeInsets.only(left: 22))),
+                        ],
+                      )),
+                  // Expanded(
+                  //     flex: 8,
+                  //     child: Container(
+                  //       decoration: _getShadowDecoration(),
+                  //       child: Card(
+                  //           child: Row(
+                  //         mainAxisSize: MainAxisSize.max,
+                  //         children: <Widget>[
+                  //           Expanded(
+                  //               child: Padding(
+                  //                   child: DirectSelectList<String>(
+                  //                       values: _portionSize,
+                  //                       defaultItemIndex: selectedPortionSize,
+                  //                       itemBuilder: (String value) =>
+                  //                           getDropDownMenuItem(value),
+                  //                       focusedItemDecoration:
+                  //                           _getDslDecoration(),
+                  //                       onItemSelectedListener:
+                  //                           (item, index, context) {
+                  //                         setState(() {
+                  //                           selectedPortionSize = index;
+                  //                         });
+                  //                       }),
+                  //                   padding: EdgeInsets.only(left: 22))),
+                  //           Padding(
+                  //             padding: EdgeInsets.only(right: 8),
+                  //             child: _getDropdownIcon(),
+                  //           )
+                  //         ],
+                  //       )),
+                  //     )),
+                ]),
               ],
             ),
           ),
