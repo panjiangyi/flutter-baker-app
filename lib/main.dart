@@ -15,6 +15,11 @@ class Baker extends StatefulWidget {
 class BakerState extends State<Baker> {
   String title = "烘焙面包计算器";
   num idx = 1;
+  void value(String v) {
+    setState(() {
+      title = v;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class BakerState extends State<Baker> {
         appBar: AppBar(
           title: Text(title),
         ),
-        body: NumSelector(),
+        body: NumSelector(value),
       ),
     );
   }

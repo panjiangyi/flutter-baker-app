@@ -4,13 +4,16 @@ import 'package:direct_select_flutter/direct_select_list.dart';
 import 'package:flutter/material.dart';
 
 class NumSelector extends StatefulWidget {
+  final Function popValue;
+  NumSelector(this.popValue);
   @override
-  _NumSelectorState createState() => _NumSelectorState();
+  _NumSelectorState createState() => _NumSelectorState(popValue);
 }
 
 class _NumSelectorState extends State<NumSelector> {
   int selectedPortionCounts = 0;
-
+  final Function popValue;
+  _NumSelectorState(this.popValue);
   DirectSelectItem<String> getDropDownMenuItem(String value) {
     return DirectSelectItem<String>(
         itemHeight: 56,
@@ -23,6 +26,7 @@ class _NumSelectorState extends State<NumSelector> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 50,
       color: Color.fromRGBO(255, 0, 0, 1),
       child: DirectSelectContainer(
         child: DirectSelectList<String>(
@@ -39,6 +43,7 @@ class _NumSelectorState extends State<NumSelector> {
               ),
             ),
             onItemSelectedListener: (item, index, context) {
+              popValue(item);
               setState(() {
                 selectedPortionCounts = index;
               });
