@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:localstorage/localstorage.dart";
 import "store.dart";
 import "./components/recipe.dart";
 import "./components/num-selector.dart";
@@ -24,21 +25,31 @@ class BakerState extends State<Baker> {
 
   @override
   Widget build(BuildContext context) {
+    final LocalStorage storage = new LocalStorage('some_key');
+
     BakerState state = store.getState();
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text(title),
-          ),
-          body: Container(
-            color: Color.fromRGBO(255, 255, 255, 1),
-            height: double.infinity,
-            child: ListView(
-              children: ["蛋糕", "面包"].map((i) {
-                return Recipe(i.toString());
-              }).toList(),
-            ),
-          )),
+    return FutureBuilder(
+      future: storage.ready,
+      builder: (BuildContext context, snapshot) {
+        // storage.setItem('key', "sdfsdf");
+        String data = storage.getItem('key');
+        print(data);
+        return MaterialApp(
+          home: Scaffold(
+              appBar: AppBar(
+                title: Text(title),
+              ),
+              body: Container(
+                color: Color.fromRGBO(255, 255, 255, 1),
+                height: double.infinity,
+                child: ListView(
+                  children: ["蛋糕", "面包"].map((i) {
+                    return Recipe(i.toString());
+                  }).toList(),
+                ),
+              )),
+        );
+      },
     );
   }
 }
