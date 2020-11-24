@@ -28,10 +28,10 @@ class BakerState extends State<Baker> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: Text("$title success!"),
+            title: Text(title),
           ),
           body: Container(
-            color: Color.fromRGBO(125, 125, 125, 1),
+            color: Color.fromRGBO(255, 255, 255, 1),
             height: double.infinity,
             child: ListView(
               children: ["蛋糕", "面包"].map((i) {
