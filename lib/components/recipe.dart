@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "./recipe-detail.dart";
 
 class Recipe extends StatelessWidget {
   final String name;
@@ -7,7 +8,12 @@ class Recipe extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print(name);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) {
+            return RecipeDetail(name);
+          }),
+        );
       },
       child: Container(
         decoration: const BoxDecoration(
